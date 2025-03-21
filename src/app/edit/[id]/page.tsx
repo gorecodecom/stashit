@@ -119,7 +119,7 @@ export default function EditEntry({ params }: { params: Promise<{ id: string }> 
         throw new Error('Failed to update entry')
       }
 
-      router.push('/')
+      router.push(`/#${id}`)
     } catch (error) {
       console.error('Error updating entry:', error)
       alert('Failed to update entry. Please try again.')
@@ -142,7 +142,7 @@ export default function EditEntry({ params }: { params: Promise<{ id: string }> 
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-2xl font-bold text-slate-100">Edit Entry</h1>
           <Link
-            href="/"
+            href={`/#${id}`}
             className="px-4 py-2 text-slate-400 hover:text-slate-200 transition-colors"
           >
             ← Back
@@ -187,6 +187,7 @@ export default function EditEntry({ params }: { params: Promise<{ id: string }> 
                   type="button"
                   onClick={() => setIsAddingCategory(true)}
                   className="px-4 py-2 bg-emerald-800 text-emerald-100 rounded-md hover:bg-emerald-700 transition-colors flex items-center gap-1"
+                  title="Add a new category"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -216,6 +217,7 @@ export default function EditEntry({ params }: { params: Promise<{ id: string }> 
                             setNewCategory('')
                           }}
                           className="px-4 py-2 border border-slate-600 text-slate-300 rounded-md hover:bg-slate-700 transition-colors"
+                          title="Cancel adding new category"
                         >
                           Cancel
                         </button>
@@ -223,6 +225,7 @@ export default function EditEntry({ params }: { params: Promise<{ id: string }> 
                           type="button"
                           onClick={() => handleAddCategory(newCategory)}
                           className="px-4 py-2 bg-emerald-800 text-emerald-100 rounded-md hover:bg-emerald-700 transition-colors"
+                          title="Save new category"
                         >
                           Add
                         </button>
@@ -254,6 +257,7 @@ export default function EditEntry({ params }: { params: Promise<{ id: string }> 
                       }
                     }}
                     className="absolute top-2 right-2 bg-slate-900/80 text-slate-200 p-2 rounded-full hover:bg-slate-800/80"
+                    title="Remove image"
                   >
                     ✕
                   </button>
@@ -390,8 +394,9 @@ ${content.value}`;
 
             <div className="flex justify-end space-x-4">
               <Link
-                href="/"
+                href={`/#${id}`}
                 className="px-4 py-2 border border-slate-600 rounded-md text-slate-300 hover:bg-slate-700 transition-colors"
+                title="Cancel editing and return to entry"
               >
                 Cancel
               </Link>
@@ -399,6 +404,7 @@ ${content.value}`;
                 type="submit"
                 disabled={isSubmitting}
                 className="px-4 py-2 bg-emerald-800 text-emerald-100 rounded-md hover:bg-emerald-700 transition-colors disabled:opacity-50"
+                title="Save changes to entry"
               >
                 {isSubmitting ? 'Saving...' : 'Save Changes'}
               </button>

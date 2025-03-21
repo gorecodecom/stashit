@@ -7,6 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "StashIt - Your Personal Information Manager",
   description: "Save and organize your recipes and other information easily",
+  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
 };
 
 export default function RootLayout({
@@ -16,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-gray-50`}>{children}</body>
+      <body className={`${inter.className} bg-slate-900 overflow-hidden`}>{children}</body>
     </html>
   );
 }

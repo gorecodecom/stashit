@@ -192,6 +192,7 @@ export default function NewEntry() {
                   type="button"
                   onClick={() => setIsAddingCategory(true)}
                   className="px-4 py-2 bg-emerald-800 text-emerald-100 rounded-md hover:bg-emerald-700 transition-colors flex items-center gap-1"
+                  title="Add a new category"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -221,6 +222,7 @@ export default function NewEntry() {
                             setNewCategory('')
                           }}
                           className="px-4 py-2 border border-slate-600 text-slate-300 rounded-md hover:bg-slate-700 transition-colors"
+                          title="Cancel adding new category"
                         >
                           Cancel
                         </button>
@@ -228,6 +230,7 @@ export default function NewEntry() {
                           type="button"
                           onClick={() => handleAddCategory(newCategory)}
                           className="px-4 py-2 bg-emerald-800 text-emerald-100 rounded-md hover:bg-emerald-700 transition-colors"
+                          title="Save new category"
                         >
                           Add
                         </button>
@@ -259,6 +262,7 @@ export default function NewEntry() {
                       }
                     }}
                     className="absolute top-2 right-2 bg-slate-900/80 text-slate-200 p-2 rounded-full hover:bg-slate-800/80"
+                    title="Remove image"
                   >
                     ✕
                   </button>
@@ -397,6 +401,7 @@ ${content.value}`;
               <Link
                 href="/"
                 className="px-4 py-2 border border-slate-600 rounded-md text-slate-300 hover:bg-slate-700 transition-colors"
+                title="Cancel creating new entry"
               >
                 Cancel
               </Link>
@@ -404,6 +409,7 @@ ${content.value}`;
                 type="submit"
                 disabled={isSubmitting}
                 className="px-4 py-2 bg-emerald-800 text-emerald-100 rounded-md hover:bg-emerald-700 transition-colors disabled:opacity-50"
+                title="Save new entry"
               >
                 {isSubmitting ? 'Saving...' : 'Save Entry'}
               </button>
