@@ -14,7 +14,7 @@ StashIt is a modern web application built with Next.js that helps you save, orga
 
 ## Tech Stack
 
-- [Next.js 15.2](https://nextjs.org/) - React framework
+- [Next.js 16.4](https://nextjs.org/) - React framework
 - [React 19](https://reactjs.org/) - UI library
 - [TypeScript](https://www.typescriptlang.org/) - Type safety
 - [Tailwind CSS](https://tailwindcss.com/) - Styling
@@ -24,29 +24,25 @@ StashIt is a modern web application built with Next.js that helps you save, orga
 
 ### Prerequisites
 
-- Node.js 18.0 or later
-- npm or yarn package manager
+- Node.js 24.22.1 (see `.nvmrc`; run `nvm install` and `nvm use`)
+- npm package manager
 
 ### Installation
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/stashit.git
+git clone https://github.com/gorecodecom/stashit.git
 cd stashit
 ```
 
 2. Install dependencies:
 ```bash
-npm install
-# or
-yarn install
+npm ci
 ```
 
 3. Run the development server:
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
 4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the application.
@@ -96,3 +92,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Built with [Next.js](https://nextjs.org/)
 - Styled with [Tailwind CSS](https://tailwindcss.com/)
 - Icons from [Heroicons](https://heroicons.com/)
+
+## Validation and deployment
+
+Run `npm run lint`, `npm run typecheck`, `npm test`, and `npm run build`. Start the production server with `npm start`. Back up `data/` before a deployment; it contains personal entries and categories. The API has no built-in authentication and the scraper accepts arbitrary URLs. Keep the application behind access control on a trusted network; dependency updates alone do not make it suitable for public access.

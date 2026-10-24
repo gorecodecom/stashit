@@ -4,13 +4,19 @@ import { join } from 'path'
 
 const ENTRIES_FILE = join(process.cwd(), 'data', 'entries.json')
 
+interface Entry {
+  id: string
+  [key: string]: unknown
+}
+
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const entries = JSON.parse(readFileSync(ENTRIES_FILE, 'utf-8'))
-    const entry = entries.find((e: any) => e.id === params.id)
+    const { id } = await params
+    const entries: Entry[] = JSON.parse(readFileSync(ENTRIES_FILE, 'utf-8'))
+    const entry = entries.find((entry) => entry.id === id)
     
     if (!entry) {
       return NextResponse.json(
@@ -20,7 +26,7 @@ export async function GET(
     }
 
     return NextResponse.json({ entry })
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Failed to read entry' },
       { status: 500 }
@@ -30,12 +36,13 @@ export async function GET(
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const entries = JSON.parse(readFileSync(ENTRIES_FILE, 'utf-8'))
+    const { id } = await params
+    const entries: Entry[] = JSON.parse(readFileSync(ENTRIES_FILE, 'utf-8'))
     const updatedEntry = await request.json()
-    const index = entries.findIndex((e: any) => e.id === params.id)
+    const index = entries.findIndex((entry) => entry.id === id)
 
     if (index === -1) {
       return NextResponse.json(
@@ -47,12 +54,12 @@ export async function PUT(
     entries[index] = {
       ...entries[index],
       ...updatedEntry,
-      id: params.id, // Ensure ID doesn't change
+      id, // Ensure ID doesn't change
     }
 
     writeFileSync(ENTRIES_FILE, JSON.stringify(entries, null, 2), 'utf-8')
     return NextResponse.json({ success: true })
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Failed to update entry' },
       { status: 500 }
@@ -62,11 +69,12 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const entries = JSON.parse(readFileSync(ENTRIES_FILE, 'utf-8'))
-    const newEntries = entries.filter((e: any) => e.id !== params.id)
+    const { id } = await params
+    const entries: Entry[] = JSON.parse(readFileSync(ENTRIES_FILE, 'utf-8'))
+    const newEntries = entries.filter((entry) => entry.id !== id)
 
     if (newEntries.length === entries.length) {
       return NextResponse.json(
@@ -77,10 +85,10 @@ export async function DELETE(
 
     writeFileSync(ENTRIES_FILE, JSON.stringify(newEntries, null, 2), 'utf-8')
     return NextResponse.json({ success: true })
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Failed to delete entry' },
       { status: 500 }
     )
   }
-} 
+}

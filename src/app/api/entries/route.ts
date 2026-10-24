@@ -15,7 +15,7 @@ try {
 // Initialize entries file if it doesn't exist
 try {
   readFileSync(ENTRIES_FILE)
-} catch (error) {
+} catch {
   writeFileSync(ENTRIES_FILE, '[]', 'utf-8')
 }
 
@@ -45,4 +45,4 @@ export async function POST(request: Request) {
       { status: 500 }
     )
   }
-} 
+}

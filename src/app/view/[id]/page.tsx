@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useState, useEffect } from 'react'
+import { use, useState, useEffect } from 'react'
 
 interface Entry {
   id: string;
@@ -15,12 +15,13 @@ interface Entry {
   createdAt: string;
 }
 
-export default function ViewEntry({ params }: { params: { id: string } }) {
+export default function ViewEntry({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params)
   const router = useRouter()
   const [entry, setEntry] = useState<Entry | null>(null)
 
   useEffect(() => {
-    fetch(`/api/entries/${params.id}`)
+    fetch(`/api/entries/${id}`)
       .then(res => res.json())
       .then(data => {
         if (data.entry) {
@@ -30,7 +31,7 @@ export default function ViewEntry({ params }: { params: { id: string } }) {
         }
       })
       .catch(() => router.push('/'))
-  }, [params.id, router])
+  }, [id, router])
 
   if (!entry) {
     return (
@@ -146,4 +147,4 @@ export default function ViewEntry({ params }: { params: { id: string } }) {
       </div>
     </div>
   )
-} 
+}

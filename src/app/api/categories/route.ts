@@ -15,7 +15,7 @@ try {
 // Initialize categories file if it doesn't exist
 try {
   readFileSync(CATEGORIES_FILE)
-} catch (error) {
+} catch {
   writeFileSync(CATEGORIES_FILE, '[]', 'utf-8')
 }
 
@@ -61,4 +61,4 @@ export async function POST(request: Request) {
       { status: 500 }
     )
   }
-} 
+}
